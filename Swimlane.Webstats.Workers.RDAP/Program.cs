@@ -34,23 +34,25 @@ namespace Swimlane.Webstats.Workers.RDAP
                         }
                         else
                         {
-                            HttpClient httpReq = new HttpClient();
-                            HttpResponseMessage message = await httpReq.GetAsync($"https://rdap.verisign.com/com/v1/domain/{domain}");
+                            using (HttpClient httpReq = new HttpClient())
+                            {
+                                HttpResponseMessage message = await httpReq.GetAsync($"https://rdap.verisign.com/com/v1/domain/{domain}");
 
-                            Console.WriteLine($"Querying: {domain}");
+                                Console.WriteLine($"Querying: {domain}");
 
-                            string responseMessage = await message.Content.ReadAsStringAsync();
+                                string responseMessage = await message.Content.ReadAsStringAsync();
 
-                            context.Response.StatusCode = 200;
+                                context.Response.StatusCode = 200;
 
-                            HttpListenerResponse response = context.Response;
-                            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseMessage);
-                            response.ContentLength64 = buffer.Length;
+                                HttpListenerResponse response = context.Response;
+                                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseMessage);
+                                response.ContentLength64 = buffer.Length;
 
-                            System.IO.Stream output = context.Response.OutputStream;
-                            output.Write(buffer, 0, buffer.Length);
+                                System.IO.Stream output = context.Response.OutputStream;
+                                output.Write(buffer, 0, buffer.Length);
 
-                            context.Response.Close();
+                                context.Response.Close();
+                            }
                         }
                     }
 

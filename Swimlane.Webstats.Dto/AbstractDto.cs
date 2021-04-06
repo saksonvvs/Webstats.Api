@@ -11,7 +11,7 @@ namespace Swimlane.Webstats.Dto
         public AbstractDto()
         {
             Uid = new Guid();
-            DteCreated = new DateTime();
+            DteCreated = DateTime.Now;
             OwnerUid = new Guid();
         }
 

@@ -17,6 +17,8 @@ namespace Swimlane.Webstats.Dto.Request
         {
             Host = string.Empty;
             QueryServices = new List<string>();
+            QueryServices.Add("RDAP");
+            QueryServices.Add("Ping");
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Swimlane.Webstats.BaseServices;
+﻿using Microsoft.Extensions.Configuration;
+using Swimlane.Webstats.BaseServices;
 using Swimlane.Webstats.Common;
 using Swimlane.Webstats.Dto.Services;
 using System;
@@ -11,8 +12,12 @@ namespace Swimlane.Webstats.Services.BaseServices
 {
     public class RDAPService : IService
     {
-        private readonly string url = "http://localhost:8080/RDAP/";
+        private readonly string url;
 
+        public RDAPService(IConfiguration config)
+        {
+            url = config["RDAPBaseUrl"];
+        }
 
         public string ServiceType()
         {
@@ -22,19 +27,20 @@ namespace Swimlane.Webstats.Services.BaseServices
 
         public async Task<ServiceResultDto> SendQueryAsync(string host)
         {
+            if (String.IsNullOrEmpty(host))
+                return new ServiceResultDto();
+
+            
             ServiceResultDto result = new ServiceResultDto();
             result.ServiceType = ServiceType();
+            result.Uid = Guid.NewGuid();
 
 
-            if (String.IsNullOrEmpty(host))
-                return result;
-
-
-            HttpClient res = new HttpClient();
-            HttpResponseMessage response = await res.GetAsync($"{url}{host}");
-
-            result.Result = await response.Content.ReadAsStringAsync();
-
+            using (HttpClient res = new HttpClient())
+            {
+                HttpResponseMessage response = await res.GetAsync($"{url}{host}");
+                result.Result = await response.Content.ReadAsStringAsync();
+            }
 
             return result;
         }

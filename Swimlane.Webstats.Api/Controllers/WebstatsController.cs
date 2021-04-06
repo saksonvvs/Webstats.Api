@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Swimlane.Webstats.Api.Controllers.Base;
 using Swimlane.Webstats.BaseServices;
 using Swimlane.Webstats.Common;
 using Swimlane.Webstats.Dto.Request;
@@ -14,24 +17,27 @@ namespace Swimlane.Webstats.Service.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WebstatsController : ControllerBase
+    public class WebstatsController : ApiBaseController
     {
        
-        private readonly ILogger<WebstatsController> _logger;
         private readonly IEnumerable<IService> _services;
 
 
         public WebstatsController(
             ILogger<WebstatsController> logger,
-            IEnumerable<IService> services)
+            IConfiguration config,
+            IEnumerable<IService> services) :base(logger, config)
         {
-            _logger = logger;
             _services = services;
         }
 
 
 
+
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(RequestDto request)
         {
             if (request == null)
@@ -45,6 +51,7 @@ namespace Swimlane.Webstats.Service.Controllers
 
             IService RDAPService = _services.Where(x => x.ServiceType() == ServiceTypes.RDAP).Single();
             ServiceResultDto rdapResult = await RDAPService.SendQueryAsync(request.Host);
+            
 
             IService PingService = _services.Where(x => x.ServiceType() == ServiceTypes.Ping).Single();
             ServiceResultDto pingResult = await PingService.SendQueryAsync(request.Host);
@@ -57,6 +64,8 @@ namespace Swimlane.Webstats.Service.Controllers
 
             return Content(JsonConvert.SerializeObject(result));
         }
+
+
 
 
     }
