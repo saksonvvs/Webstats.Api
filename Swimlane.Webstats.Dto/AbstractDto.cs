@@ -6,7 +6,6 @@ namespace Swimlane.Webstats.Dto
     {
         public Guid Uid { get; set; }
         public DateTime DteCreated { get; set; }
-
         public Guid OwnerUid { get; set; }
 
         public AbstractDto()

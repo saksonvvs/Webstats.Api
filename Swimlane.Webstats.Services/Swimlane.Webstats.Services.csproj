@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Swimlane.Webstats.Common\Swimlane.Webstats.Common.csproj" />
+    <ProjectReference Include="..\Swimlane.Webstats.Dto\Swimlane.Webstats.Dto.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Swimlane.Webstats.BaseServices;
+using Swimlane.Webstats.Services.BaseServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,13 @@ namespace Swimlane.Webstats.Service
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swimlane.Webstats.Service", Version = "v1" });
             });
+
+            
+            services.AddTransient<IService, PingService>();
+            services.AddTransient<IService, RDAPService>();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

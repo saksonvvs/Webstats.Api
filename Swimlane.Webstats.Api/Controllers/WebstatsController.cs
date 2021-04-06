@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Swimlane.Webstats.BaseServices;
+using Swimlane.Webstats.Common;
 using Swimlane.Webstats.Dto.Request;
 using Swimlane.Webstats.Dto.Services;
 using System;
@@ -16,31 +18,46 @@ namespace Swimlane.Webstats.Service.Controllers
     {
        
         private readonly ILogger<WebstatsController> _logger;
+        private readonly IEnumerable<IService> _services;
 
 
-        public WebstatsController(ILogger<WebstatsController> logger)
+        public WebstatsController(
+            ILogger<WebstatsController> logger,
+            IEnumerable<IService> services)
         {
             _logger = logger;
+            _services = services;
         }
 
 
 
-        [HttpGet]
-        public IActionResult Get(RequestDto request)
+        [HttpPost]
+        public async Task<IActionResult> Get(RequestDto request)
         {
             if (request == null)
                 return BadRequest();
 
             TryValidateModel(request);
 
-            //validate request
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest();
 
 
-            IEnumerable<ServiceResultDto> result = new List<ServiceResultDto>();
+            IService RDAPService = _services.Where(x => x.ServiceType() == ServiceTypes.RDAP).Single();
+            ServiceResultDto rdapResult = await RDAPService.SendQueryAsync(request.Host);
+
+            IService PingService = _services.Where(x => x.ServiceType() == ServiceTypes.Ping).Single();
+            ServiceResultDto pingResult = await PingService.SendQueryAsync(request.Host);
+
+
+            IList<ServiceResultDto> result = new List<ServiceResultDto>();
+            result.Add(rdapResult);
+            result.Add(pingResult);
+            
 
             return Content(JsonConvert.SerializeObject(result));
         }
+
+
     }
 }
