@@ -1,40 +1,40 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Webstats.BaseServices;
-using Webstats.Common;
-using Webstats.Dto.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Webstats.BaseServices;
+using Webstats.Common;
+using Webstats.Dto.Services;
 
 namespace Webstats.Services.BaseServices
 {
-    public class PingService : IService
+    public class WebsiteStatusService : IService
     {
         private readonly string url;
 
-        public PingService(IConfiguration config)
+        public WebsiteStatusService(IConfiguration config)
         {
-            url = config["PingBaseUrl"];
+            url = config["WebsiteStatusUrl"];
         }
-
 
         public string ServiceType()
         {
-            return ServiceTypes.Ping;
+            return ServiceTypes.WebsiteStatus;
         }
-
 
         public async Task<ServiceResultDto> SendQueryAsync(string host)
         {
             if (String.IsNullOrEmpty(host))
                 return new ServiceResultDto();
 
+
             ServiceResultDto result = new ServiceResultDto();
             result.ServiceType = ServiceType();
             result.Uid = Guid.NewGuid();
-            
+
 
             using (HttpClient res = new HttpClient())
             {
@@ -46,6 +46,6 @@ namespace Webstats.Services.BaseServices
             return result;
         }
 
-        
+
     }
 }

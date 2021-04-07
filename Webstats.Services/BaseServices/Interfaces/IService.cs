@@ -7,7 +7,6 @@ namespace Webstats.BaseServices
     public interface IService
     {
         string ServiceType();
-
         Task<ServiceResultDto> SendQueryAsync(string host);
     }
 }

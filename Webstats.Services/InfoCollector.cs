@@ -30,10 +30,7 @@ namespace Webstats.Services
 
         public async Task<ServiceResultDto[]> Request(string host, string[] requestedServices = null)
         {
-            if (requestedServices != null && requestedServices.Length > 0)
-                Validate(requestedServices);
-
-
+            
             var serviceTypes = requestedServices == null || requestedServices.Length == 0
                 ? _defaultServices
                 : requestedServices;
@@ -52,19 +49,6 @@ namespace Webstats.Services
             return results;
         }
 
-
-
-        private void Validate(string[] requestedServices)
-        {
-            var allServices = ServiceTypes.ServiceList.Select(s => s.ToLower()).ToArray();
-            foreach (var service in requestedServices)
-            {
-                if (!allServices.Contains(service.ToLower()))
-                {
-                    throw new InvalidOperationException($"{service} is invalid service.");
-                }
-            }
-        }
 
 
     }

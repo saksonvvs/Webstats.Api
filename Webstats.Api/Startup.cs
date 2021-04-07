@@ -39,6 +39,7 @@ namespace Webstats.Service
             
             services.AddTransient<IService, PingService>();
             services.AddTransient<IService, RDAPService>();
+            services.AddTransient<IService, WebsiteStatusService>();
             services.AddTransient<InfoCollector>();
         }
 

@@ -11,6 +11,7 @@ namespace Webstats.Common
         public static readonly string RDAP = "RDAP";
         public static readonly string TraceRoute = "TraceRoute";
         public static readonly string DNSLookup = "DNSLookup";
+        public static readonly string WebsiteStatus = "WebsiteStatus";
 
         public static readonly string[] ServiceList = new string[]
         {
@@ -20,7 +21,8 @@ namespace Webstats.Common
             GeoIp,
             RDAP,
             TraceRoute,
-            DNSLookup
+            DNSLookup,
+            WebsiteStatus
         };
 
     }

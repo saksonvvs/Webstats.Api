@@ -11,10 +11,12 @@ namespace Webstats.Tests
         {
         }
 
+
         public void TestIfWorkerReceiveInvalidDomain()
         {
             throw new NotImplementedException();
         }
+
 
         public void TestIfWorkerReceiveValidRequest()
         {
