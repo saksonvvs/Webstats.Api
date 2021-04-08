@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Webstats.Dto.Services
 {
-    public class ServiceResultDto : AbstractDto
+    public class ServiceResultDto : Dto
     {
         public string ServiceType { get; set; }
         public string Result { get; set; }

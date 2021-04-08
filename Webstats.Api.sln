@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webstats.Tests", "Webstats.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webstats.Api", "Webstats.Api\Webstats.Api.csproj", "{A4D3AE0D-C25D-4637-9355-91C51BD617CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webstats.Workers.WebsiteStatus", "Webstats.Workers.WebsiteStatus\Webstats.Workers.WebsiteStatus.csproj", "{5790790C-287E-4B11-A23F-941E27604FC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webstats.Workers.WebsiteStatus", "Webstats.Workers.WebsiteStatus\Webstats.Workers.WebsiteStatus.csproj", "{5790790C-287E-4B11-A23F-941E27604FC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

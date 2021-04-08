@@ -12,20 +12,19 @@ namespace Webstats.Tests
         }
 
 
+        [Fact]
         public void TestIfWorkerReceiveInvalidDomain()
-        {
-            throw new NotImplementedException();
+        {   
         }
 
-
+        [Fact]
         public void TestIfWorkerReceiveValidRequest()
         {
-            throw new NotImplementedException();
         }
 
+        [Fact]
         public void TestIfWorkerTimeout()
         {
-            throw new NotImplementedException();
         }
     }
 }

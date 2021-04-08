@@ -20,7 +20,10 @@ namespace Webstats.Services
         {
             _services = services;
 
-            _defaultServices = config["DefaultServices"]
+            var ser = config["DefaultServices"];
+
+            _defaultServices = config.GetSection("DefaultServices")
+                .Value
                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Trim())
                 .ToArray();

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Webstats.Dto.Response
 {
-    public class ResponseDto : AbstractDto
+    public class ResponseDto : Dto
     {
         public ResultSummaryDto resultSummary { get; set; }
 

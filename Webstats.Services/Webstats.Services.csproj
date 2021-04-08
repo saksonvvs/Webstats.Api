@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -11,10 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Webstats.Common\Webstats.Common.csproj" />
     <ProjectReference Include="..\Webstats.Dto\Webstats.Dto.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Parsers\" />
   </ItemGroup>
 
 </Project>

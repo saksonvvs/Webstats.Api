@@ -2,13 +2,13 @@
 
 namespace Webstats.Dto
 {
-    public abstract class AbstractDto
+    public class Dto
     {
         public Guid Uid { get; set; }
         public DateTime DteCreated { get; set; }
         public Guid OwnerUid { get; set; }
 
-        public AbstractDto()
+        public Dto()
         {
             Uid = new Guid();
             DteCreated = DateTime.Now;

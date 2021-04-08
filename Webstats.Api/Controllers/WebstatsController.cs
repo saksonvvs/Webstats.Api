@@ -17,6 +17,15 @@ using System.Threading.Tasks;
 
 namespace Webstats.Service.Controllers
 {
+    // TODO:
+    // Handle Global Exceptions 
+    // Handle Exceptions in worker +++
+    // Add Data Parsers
+    // Complete Tests
+    // Accept IP 
+    // Make sure service handle if worker is down +++
+    // make swagger available after publish
+    //
     [ApiController]
     [Route("[controller]")]
     public class WebstatsController : ApiBaseController

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,6 +22,8 @@ namespace Webstats.Workers.RDAP
                 Listener.Prefixes.Add("http://localhost:8080/RDAP/");
                 Listener.Start();
 
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                //System.Net.ServicePointManager.Expect100Continue = false;
 
                 while (true)
                 {
@@ -55,9 +59,11 @@ namespace Webstats.Workers.RDAP
 
                                     context.Response.Close();
                                 }
-                            }catch(Exception ex)
+                            }
+                            catch(Exception ex)
                             {
                                 Console.WriteLine("Error:" + ex.Message.ToString());
+                                Console.WriteLine("Error:" + ex.InnerException.ToString());
                                 context.Response.StatusCode = 500;
                                 context.Response.Close();
                             }
